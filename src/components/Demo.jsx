@@ -6,7 +6,7 @@ const Demo = () => {
   const [article, setArticle] = useState({ url: "", summary: "" });
   const [allArticles, setAllArticles] = useState([]);
   const [copied, setCopied] = useState("");
-  // const [typedText, setTypedText] = useState("");
+  const [typedText, setTypedText] = useState("");
   const [getSummary, {error, isFetching}] = useLazyGetSummaryQuery();
   const msgEnd = useRef(null);
 
@@ -17,9 +17,12 @@ const Demo = () => {
     }
   }, []);
   
+  
   useEffect(() => {
-    msgEnd.current.scrollIntoView();
-  }, [article.summary])
+    if (typedText && article.summary.length > 0) {
+      msgEnd.current.scrollIntoView({behavior: 'smooth', inline: 'center', block: 'center'});
+    }
+  }, [typedText]);
   
 
   const handleSubmit = async (e) => {
@@ -31,7 +34,7 @@ const Demo = () => {
         setArticle(newArticle);
         setAllArticles(updatedAllArticles);
         localStorage.setItem('articles', JSON.stringify(updatedAllArticles))
-        // console.log(newArticle);
+        setTypedText("");
     }
   }
   const handleCopy = (copyUrl) => {
@@ -46,18 +49,18 @@ const Demo = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if(article.summary) {
-  //     const interval = setInterval(()=>{
-  //       if(typedText.length < article.summary.length) {
-  //         setTypedText((prevText)=>prevText+article.summary[prevText.length]);
-  //       } else {
-  //         clearInterval(interval);
-  //       }
-  //     }, 75);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [article.summary])
+  useEffect(() => {
+    if (article.summary && typeof article.summary === 'string' && article.summary.length > 0) {
+      const interval = setInterval(()=>{
+        if(typedText.length < article.summary.length) {
+          setTypedText((prevText)=>prevText+article.summary[prevText.length]);
+        } else {
+          clearInterval(interval);
+        }
+      });
+      return () => clearInterval(interval);
+    }
+  }, [article.summary, typedText])
   
   return (
     <section className="mt-16 w-full max-w-xl">
@@ -100,7 +103,7 @@ const Demo = () => {
         {isFetching ? ( <img src={loader} alt="loader" className="w-20 h-20 object-contain" /> ) : error ? ( <p className="font-inter font-bold text-black text-center">Well, that wasn't supposed to happen... <br/> <span className="font-satoshi font-normal text-gray-700">{error?.data?.error}</span></p> ) : ( article.summary && ( <div className="flex flex-col gap-3">
             <h2 className="font-satoshi font-bold text-gray-600 text-xl">Article <span className="blue_gradient">Summary</span></h2>
             <div className="summary_box">
-                <p className="font-inter font-medium text-sm text-gray-700">{article.summary}</p>
+                <p className="font-inter font-medium text-lg text-gray-700">{typedText}</p>
             </div>
         </div> ) )}
         <div ref={msgEnd}></div>
