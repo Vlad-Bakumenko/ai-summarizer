@@ -18,6 +18,8 @@ npm (v6.14.0 or higher)
 1. To run the app in development mode, use the following command - `npm run dev`
 2. Open `http://localhost:3000` to view it in your browser.
 
+##### Please note that the API used in this project has limitations, and users may face errors when summarizing articles.
+
 ## Features
 - Extracts and summarizes articles using OpenAI's GPT-4 through RapidAPI
 - Utilizes Redux for API management
