@@ -5,10 +5,6 @@ This project is a React application that extracts and summarizes articles using 
 ## Getting Started
 To get a local copy up and running, follow these simple steps:
 
-### Prerequisites
-Node.js (v14.0.0 or higher)
-npm (v6.14.0 or higher)
-
 ### Installation
 1. Clone the repository - `git clone https://github.com/yourusername/article-extractor-summarizer.git!`
 2. Change into the project directory - cd ai-summarizer!
