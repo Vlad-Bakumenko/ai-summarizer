@@ -1,35 +1,54 @@
-# Article Extractor and Summarizer React App
+# Summize — AI Article Summarizer
 
-This project is a React application that extracts and summarizes articles using OpenAI's GPT-4 through RapidAPI. It utilizes Redux for API management, Tailwind CSS for styling, and localStorage for saving the history of searches.
+Paste any article URL and get a concise summary powered by AI. Search history is saved locally in your browser.
+
+🔗 **Live site:** https://ai-summarizer-liard-two.vercel.app
+
+---
+
+## Tech Stack
+
+- **React 18 + Vite**
+- **Redux Toolkit + RTK Query** — API state management
+- **Tailwind CSS** — styling
+- **RapidAPI** (Article Extractor and Summarizer) — article extraction + summarization
+- **localStorage** — search history persistence
+- **Vercel** — hosting + CD
 
 ## Getting Started
-To get a local copy up and running, follow these simple steps:
 
-### Installation
-1. Clone the repository - `git clone https://github.com/yourusername/article-extractor-summarizer.git!`
-2. Change into the project directory - cd ai-summarizer!
-3. Install the dependencies - `npm install`
+### 1. Clone the repo
 
-### Running the App
-1. To run the app in development mode, use the following command - `npm run dev`
-2. Open `http://localhost:3000` to view it in your browser.
+```bash
+git clone https://github.com/Vlad-Bakumenko/ai-summarizer.git
+cd ai-summarizer
+```
 
-##### Please note that the API used in this project has limitations, and users may face errors when summarizing articles.
+### 2. Install dependencies
 
-## Features
-- Extracts and summarizes articles using OpenAI's GPT-4 through RapidAPI
-- Utilizes Redux for API management
-- Styled with Tailwind CSS
-- Saves search history in localStorage
+```bash
+npm install
+```
 
-## Technologies Used
-- React
-- Redux
-- Tailwind CSS
-- OpenAI's GPT-4 through RapidAPI
+### 3. Set up environment variables
 
-## Learnings
-- Making advanced RTK query API requests that are conditional
-- Saving application history using local storage
-- Handling form events
-- Implementing copy to clipboard functionality
+Create a `.env` file in the root:
+
+```env
+VITE_RAPID_API_ARTICLE_KEY=your_rapidapi_key_here
+```
+
+Get your key from [RapidAPI — Article Extractor and Summarizer](https://rapidapi.com/restyler/api/article-extractor-and-summarizer).
+
+### 4. Run locally
+
+```bash
+npm run dev
+```
+
+## CI/CD
+
+- **GitHub Actions** — lint + build runs on every PR to `main`
+- **Vercel** — auto-deploys on merge to `main`
+
+Add `VITE_RAPID_API_ARTICLE_KEY` to both GitHub Actions secrets and Vercel environment variables before deploying.
