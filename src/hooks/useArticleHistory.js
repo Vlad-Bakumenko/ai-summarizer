@@ -15,8 +15,9 @@ const useArticleHistory = () => {
 
   const submitArticle = async (e) => {
     e.preventDefault();
-    const { data } = await getSummary(article.url);
-    if (data?.summary) {
+    try {
+      const data = await getSummary(article.url).unwrap();
+      if (!data?.summary) return;
       const newArticle = {
         ...article,
         summary: data.summary,
@@ -26,6 +27,8 @@ const useArticleHistory = () => {
       setArticle(newArticle);
       setAllArticles(updated);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    } catch {
+      // error state is handled via the RTK Query error from useLazyGetSummaryQuery
     }
   };
 

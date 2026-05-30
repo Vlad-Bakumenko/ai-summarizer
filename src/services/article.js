@@ -24,7 +24,7 @@ export const articleApi = createApi({
         );
         if (extractResult.error) return { error: extractResult.error };
 
-        const text = extractResult.data?.text;
+        const text = extractResult.data?.md;
         if (!text) {
           return { error: { status: "CUSTOM_ERROR", error: "No article text found at that URL." } };
         }
