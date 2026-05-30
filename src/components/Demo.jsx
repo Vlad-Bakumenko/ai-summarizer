@@ -43,7 +43,8 @@ const Demo = () => {
           />
           <button
             type="submit"
-            className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700"
+            disabled={isFetching}
+            className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700 disabled:opacity-40 disabled:cursor-not-allowed"
             aria-label="Summarize article"
           >
             ↵
@@ -54,7 +55,7 @@ const Demo = () => {
         <div className="flex flex-col gap-1 max-h-60 overflow-y-auto">
           {allArticles.map((item) => (
             <div
-              key={item.id}
+              key={item.id ?? item.url}
               role="button"
               tabIndex={0}
               onClick={() => setArticle(item)}
@@ -95,7 +96,7 @@ const Demo = () => {
             Well, that wasn&apos;t supposed to happen...
             <br />
             <span className="font-satoshi font-normal text-gray-700">
-              {error?.data?.error}
+              {error?.data?.error ?? error?.error}
             </span>
           </p>
         ) : (
