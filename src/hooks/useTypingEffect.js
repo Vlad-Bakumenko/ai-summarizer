@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { TYPING_INTERVAL_MS } from "../constants";
 
 const useTypingEffect = (text) => {
   const [typedText, setTypedText] = useState("");
@@ -14,7 +15,7 @@ const useTypingEffect = (text) => {
 
     const timeout = setTimeout(() => {
       setTypedText((prev) => prev + text[prev.length]);
-    }, 16);
+    }, TYPING_INTERVAL_MS);
 
     return () => clearTimeout(timeout);
   }, [text, typedText]);

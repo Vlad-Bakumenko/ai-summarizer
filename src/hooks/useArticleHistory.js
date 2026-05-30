@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLazyGetSummaryQuery } from "../services/article";
 
-const STORAGE_KEY = "articles";
+import { ARTICLES_STORAGE_KEY as STORAGE_KEY } from "../constants";
 
 const useArticleHistory = () => {
   const [article, setArticle] = useState({ url: "", summary: "" });
