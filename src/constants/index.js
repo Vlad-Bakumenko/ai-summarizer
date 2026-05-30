@@ -1,6 +1,6 @@
 export const ARTICLES_STORAGE_KEY = "articles";
 
-export const SUMMARY_LENGTH = 6;
+export const SUMMARY_LANG = "en";
 
 export const RAPIDAPI_BASE_URL =
   "https://article-extractor-and-summarizer.p.rapidapi.com/";
