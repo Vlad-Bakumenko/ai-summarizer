@@ -23,12 +23,17 @@ const Demo = () => {
           className="relative flex justify-center items-center"
           onSubmit={submitArticle}
         >
+          <label htmlFor="article-url" className="sr-only">
+            Article URL
+          </label>
           <img
             src={linkIcon}
-            alt="link icon"
+            alt=""
+            aria-hidden="true"
             className="absolute left-0 my-2 ml-3 w-5"
           />
           <input
+            id="article-url"
             type="url"
             placeholder="Enter a URL"
             value={article.url}
@@ -39,6 +44,7 @@ const Demo = () => {
           <button
             type="submit"
             className="submit_btn peer-focus:border-gray-700 peer-focus:text-gray-700"
+            aria-label="Summarize article"
           >
             ↵
           </button>
@@ -49,16 +55,29 @@ const Demo = () => {
           {allArticles.map((item) => (
             <div
               key={item.id}
+              role="button"
+              tabIndex={0}
               onClick={() => setArticle(item)}
+              onKeyDown={(e) => e.key === "Enter" && setArticle(item)}
               className="link_card"
+              aria-label={`Load article: ${item.url}`}
             >
-              <div className="copy_btn" onClick={() => handleCopy(item.url)}>
+              <button
+                type="button"
+                className="copy_btn"
+                aria-label="Copy URL"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCopy(item.url);
+                }}
+              >
                 <img
                   src={copied === item.url ? tick : copy}
-                  alt="copy icon"
+                  alt=""
+                  aria-hidden="true"
                   className="w-[40%] h-[40%] object-contain"
                 />
-              </div>
+              </button>
               <p className="flex-1 font-satoshi text-blue-700 font-medium text-sm truncate">
                 {item.url}
               </p>
@@ -70,7 +89,7 @@ const Demo = () => {
       {/* Results */}
       <div className="my-10 max-w-full flex justify-center items-center">
         {isFetching ? (
-          <img src={loader} alt="loading" className="w-20 h-20 object-contain" />
+          <img src={loader} alt="Loading summary..." className="w-20 h-20 object-contain" />
         ) : error ? (
           <p className="font-inter font-bold text-black text-center">
             Well, that wasn&apos;t supposed to happen...
